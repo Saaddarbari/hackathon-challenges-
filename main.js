@@ -1,63 +1,42 @@
-const form = document.getElementById('resume-form');
-const resumeContent = document.getElementById('resume-content');
-const toggleButton = document.getElementById('toggle-skills');
-const skillsSection = document.createElement('div');
-const downloadButton = document.getElementById('download-resume');
-const shareLink = document.getElementById('share-link');
-
-form.addEventListener('submit', async (event) => {
+document.getElementById('resume-form').addEventListener('submit', function(event) {
     event.preventDefault();
-    
+  
     const name = document.getElementById('name').value;
     const email = document.getElementById('email').value;
-    const profilePictureInput = document.getElementById('profile-picture');
+    const phone = document.getElementById('phone').value;
+    const address = document.getElementById('address').value;
+    const skills = document.getElementById('skills').value.split(',');
+    const experience = document.getElementById('experience').value;
     const education = document.getElementById('education').value;
-    const workExperience = document.getElementById('work-experience').value;
-    const skills = document.getElementById('skills').value;
-    
-    const reader = new FileReader();
-    reader.onload = async function() {
-        const profilePictureURL = reader.result;
-        resumeContent.innerHTML = `
-            <h3>${name}</h3>
-            <p>Email: ${email}</p>
-            <img src="${profilePictureURL}" alt="Profile Picture">
-            <h4>Education</h4>
-            <p>${education}</p>
-            <h4>Work Experience</h4>
-            <p>${workExperience}</p>
-        `;
-        
-        skillsSection.innerHTML = `
-            <h4>Skills</h4>
-            <p>${skills}</p>
-        `;
-        resumeContent.appendChild(skillsSection);
-
-        // Generate unique URL
-        const uniqueUrl = `https://${name}.vercel.app/resume`;
-        shareLink.href = uniqueUrl;
-        shareLink.textContent = uniqueUrl;
+  
+    const resumeOutput = document.getElementById('resume-output');
+    resumeOutput.innerHTML = `
+      <h2>${name}</h2>
+      <p><strong>Email:</strong> ${email}</p>
+      <p><strong>Phone:</strong> ${phone}</p>
+      <p><strong>Address:</strong> ${address}</p>
+      <h3>Skills</h3>
+      <ul>${skills.map(skill => `<li>${skill.trim()}</li>`).join('')}</ul>
+      <h3>Work Experience</h3>
+      <p>${experience}</p>
+      <h3>Education</h3>
+      <p>${education}</p>
+    `;
+  
+    document.getElementById('download-pdf').style.display = 'block';
+  });
+  
+  document.getElementById('download-pdf').addEventListener('click', function() {
+    const resumeContent = document.getElementById('resume-output').innerHTML;
+    const opt = {
+      margin:       0.9,
+      filename:     'resume.pdf',
+      image:        { type: 'jpeg', quality: 0.98 },
+      html2canvas:  { scale: 2 },
+      jsPDF:     { unit: 'in', format: 'letter', orientation: 'portrait' }
     };
-    reader.readAsDataURL(profilePictureInput.files[0]);
-});
-
-toggleButton.addEventListener('click', () => {
-    if (skillsSection.style.display === 'none' || skillsSection.style.display === '') {
-        skillsSection.style.display = 'block';
-    } else {
-        skillsSection.style.display = 'none';
-    }
-});
-
-downloadButton.addEventListener('click', () => {
-    const { jsPDF } = window.jspdf;
-    const doc = new jsPDF();
-    doc.html(resumeContent, {
-        callback: function (doc) {
-            doc.save('resume.pdf');
-        },
-        x: 10,
-        y: 10
-    });
-});
+  
+    html2pdf().from(resumeContent).set(opt).save();
+  });
+  
+  
