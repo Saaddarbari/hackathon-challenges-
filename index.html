@@ -1,83 +1,36 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Resume Builder</title>
-    <link rel="stylesheet" href="styles.css" />
-  </head>
-  <body>
-    <div class="container">
-      <h1>Resume Builder</h1>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dynamic Resume Builder</title>
+    <link rel="stylesheet" href="styles.css">
+    <!-- Include jsPDF library -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+</head>
+<body>
+    <form id="resume-form">
+        <h2>Personal Information</h2>
+        <input type="text" id="name" placeholder="Name" required>
+        <input type="email" id="email" placeholder="Email" required>
+        <input type="file" id="profile-picture" accept="image/*" required>
+        
+        <h2>Education</h2>
+        <textarea id="education" placeholder="Education" required></textarea>
+        
+        <h2>Work Experience</h2>
+        <textarea id="work-experience" placeholder="Work Experience" required></textarea>
+        
+        <h2>Skills</h2>
+        <textarea id="skills" placeholder="Skills" required></textarea>
+        
+        <button type="submit" class="btn">Create Resume</button>
+    </form>
+    <div id="resume-content"></div>
+    <button id="toggle-skills" class="btn">Toggle Skills</button>
+    <button id="download-resume" class="btn">Download Resume</button>
+    <a id="share-link" href="#" target="_blank">Shareable Link</a>
 
-      <form id="resume-form">
-        <label class="labe" for="name">Full Name:</label>
-        <input
-          type="text"
-          id="name"
-          placeholder="Please Enter your Full-Name ..."
-          required
-        /><br /><br />
-
-        <label class="labe" for="email">Email:</label>
-        <input
-          type="text"
-          id="email"
-          placeholder="Please Enter your Email ..."
-          required
-        /><br /><br />
-
-        <label class="labe" for="phone">Phone Number:</label>
-        <input
-          type="text"
-          id="phone"
-          placeholder="Please Enter your Phone No# ..."
-          required
-        /><br /><br />
-
-        <label class="labe" for="address">Address:</label>
-        <textarea
-          class="textaria"
-          id="address"
-          placeholder="Please Enter Your Address ..."
-          required
-        ></textarea
-        ><br />
-
-        <label class="labe" for="skills">Skills (comma-separated):</label>
-        <input type="text" id="skills" placeholder="Please Enter ..." 
-        required
-        /><br />
-
-        <label class="labe" for="experience">Work Experience:</label>
-        <textarea
-          class="textaria"
-          id="experience"
-          placeholder="Please Enter Your Address ..."
-          required
-        ></textarea
-        ><br />
-
-        <label class="labe" for="education">Education:</label>
-        <textarea
-          class="textaria"
-          id="education"
-          placeholder="Please Enter ..."
-          required
-        ></textarea
-        ><br />
-
-        <button type="submit">Generate Resume</button>
-      </form>
-
-      <div id="resume-output" class="resume-output">
-        <!-- Resume Preview will appear here -->
-      </div>
-
-      <button id="download-pdf">Download as PDF</button>
-    </div>
-
-    <script src="script.js"></script>
-    <script src="https://raw.githack.com/eKoopmans/html2pdf/master/dist/html2pdf.bundle.js">html2pdf</script>
-  </body>
+    <script src="main.js"></script>
+</body>
 </html>
