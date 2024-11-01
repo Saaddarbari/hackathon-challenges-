@@ -9,6 +9,7 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
 </head>
 <body>
+    <h1>Resume Builder</h1>
     <form id="resume-form">
         <h2>Personal Information</h2>
         <input type="text" id="name" placeholder="Name" required>
@@ -26,11 +27,11 @@
         
         <button type="submit" class="btn">Create Resume</button>
     </form>
-    <div id="resume-content"></div>
+    <div id="resume-content">
     <button id="toggle-skills" class="btn">Toggle Skills</button>
     <button id="download-resume" class="btn">Download Resume</button>
-    <a id="share-link" href="#" target="_blank">Shareable Link</a>
-
+    <a id="share-link" href="#" target="_blank" class="btn">Shareable Link</a>
+    </div>
     <script src="main.js"></script>
 </body>
 </html>
